@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- Déclaration du type de document, toujours en premier -->
+
+<html lang="fr">
+<!-- "lang=fr" indique au navigateur que le site est en français -->
+
+<head>
+  <!-- Le <head> contient les infos techniques, non visibles sur la page -->
+
+  <meta charset="UTF-8">
+  <!-- Permet d'utiliser les accents et caractères spéciaux -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Rend le site responsive (adapté mobile) -->
+
+  <title>DOFRECORDS</title>
+  <!-- Le titre qui apparaît dans l'onglet du navigateur -->
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <!-- Ton favicon SVG — à placer dans le même dossier que index.html -->
+
+  <!-- Google Fonts : Space Grotesk + Bebas Neue + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Lien vers notre fichier CSS -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<!-- Le <body> contient tout ce qui est visible sur la page -->
+
+  <!-- ============================================================
+    SECTION 1 : HERO
+    La première chose que voit le visiteur
+  ============================================================ -->
+  <section id="hero">
+
+    <!-- Le dégradé animé en fond -->
+    <div class="gradient-bg"></div>
+
+    <!-- Overlay de grain/noise par dessus -->
+    <div class="noise-overlay"></div>
+
+    <!-- Contenu centré du hero -->
+    <div class="hero-content">
+
+      <!-- Logo SVG — à placer dans le même dossier -->
+      <img src="logo.svg" alt="DOFRECORDS Logo" class="hero-logo">
+
+      <!-- Tagline -->
+      <p class="tagline">Deep sounds, rare selections.</p>
+
+      <!-- Flèche pour inviter au scroll -->
+      <div class="scroll-indicator">↓</div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+    SECTION 2 : ABOUT
+    Présentation du duo
+  ============================================================ -->
+  <section id="about">
+
+    <div class="section-inner">
+
+      <!-- Titre de section -->
+      <h2 class="section-title">About</h2>
+
+      <!-- Bio -->
+      <p class="bio-text">
+        DOFRECORDS est un duo DJ composé de <span class="highlight">cozmacozmacozma</span> & <span class="highlight">KAWA</span>.
+        Nourris d'influences house, techno et french touch, ils façonnent des sets aux sonorités rares et soigneusement sélectionnées.
+        Une invitation au voyage sonore, entre profondeur et énergie brute.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+    SECTION 3 : MIXES
+    Lecteur SoundCloud embarqué
+  ============================================================ -->
+  <section id="mixes">
+
+    <div class="section-inner">
+
+      <h2 class="section-title">Mixes</h2>
+
+      <!-- Widget SoundCloud intégré -->
+      <!-- src= contient l'URL de ta page SoundCloud -->
+      <div class="soundcloud-wrapper">
+        <iframe
+          class="soundcloud-player"
+          scrolling="no"
+          frameborder="no"
+          allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ilovedofrecords&color=%23C4806A&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+        </iframe>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+    SECTION 4 : DATES
+    Prochaines dates de concert
+  ============================================================ -->
+  <section id="dates">
+
+    <div class="section-inner">
+
+      <h2 class="section-title">Dates</h2>
+
+      <!-- Message coming soon -->
+      <p class="coming-soon">— Coming soon —</p>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+    SECTION 5 : CONTACT
+    Email de booking + réseaux sociaux
+  ============================================================ -->
+  <section id="contact">
+
+    <div class="section-inner">
+
+      <h2 class="section-title">Contact</h2>
+
+      <!-- Email de booking -->
+      <a href="mailto:hello@dofrecords.fr" class="booking-email">
+        hello@dofrecords.fr
+      </a>
+
+      <!-- Réseaux sociaux -->
+      <div class="social-links">
+
+        <a href="https://instagram.com/ilovedofrecords" target="_blank" class="social-link">
+          Instagram
+        </a>
+
+        <a href="https://tiktok.com/@ilovedofrecords" target="_blank" class="social-link">
+          TikTok
+        </a>
+
+        <a href="https://soundcloud.com/ilovedofrecords" target="_blank" class="social-link">
+          SoundCloud
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+    FOOTER
+  ============================================================ -->
+  <footer>
+    <p>© 2026 DOFRECORDS — All rights reserved</p>
+  </footer>
+
+  <!-- Lien vers notre fichier JavaScript, toujours en bas du body -->
+  <script src="script.js"></script>
+
+</body>
+</html>
