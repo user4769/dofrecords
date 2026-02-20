@@ -390,13 +390,15 @@ section {
   /* Effet hover : devient blanc au survol */
 }
 
-/* Liens réseaux sociaux */
+/* ============================================================
+   ICÔNES RÉSEAUX SOCIAUX
+============================================================ */
+
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 32px;
+  gap: 40px;
   flex-wrap: wrap;
-  /* flex-wrap: les liens passent à la ligne sur mobile */
   opacity: 0;
   transform: translateY(20px);
 }
@@ -404,25 +406,55 @@ section {
 .social-links.visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+  transition: opacity 0.8s ease 0.3s,
+              transform 0.8s ease 0.3s;
 }
 
+/* Chaque lien réseau */
 .social-link {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
-  padding-bottom: 2px;
-  border-bottom: 1px solid transparent;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  color: var(--color-text-muted);
+  transition: color 0.3s ease,
+              transform 0.3s ease;
 }
 
 .social-link:hover {
-  color: var(--color-text);
-  border-color: var(--color-text-muted);
+  color: var(--color-warm);
+  transform: translateY(-4px);
+  /* Légère élévation au hover */
+}
+
+/* L'icône SVG */
+.social-icon {
+  width: 28px;
+  height: 28px;
+  /* currentColor = hérite de la couleur du parent .social-link */
+  /* Donc la couleur change automatiquement au hover ! */
+}
+
+/* Le label texte sous l'icône */
+.social-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ---- RESPONSIVE MOBILE ---- */
+@media (max-width: 600px) {
+  .social-links {
+    gap: 28px;
+  }
+
+  .social-icon {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 /* ============================================================
