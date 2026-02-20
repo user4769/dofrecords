@@ -117,51 +117,74 @@ section {
 }
 
 /* --- Le dégradé animé --- */
+/* --- Le dégradé animé --- */
 .gradient-bg {
   position: absolute;
   inset: 0;
-  /* inset: 0 = top/right/bottom/left: 0 — remplit tout le parent */
-  background: radial-gradient(
-    ellipse at 80% 20%,
-    var(--color-warm) 0%,
-    transparent 50%
-  ),
-  radial-gradient(
-    ellipse at 20% 80%,
-    var(--color-deep) 0%,
-    transparent 50%
-  ),
-  radial-gradient(
-    ellipse at 50% 50%,
-    var(--color-cold) 0%,
-    transparent 70%
-  );
-  /* 3 cercles de couleur superposés = ton dégradé signature */
   background-color: var(--color-bg);
-  animation: gradientShift 12s ease-in-out infinite alternate;
-  /* 12s de durée, boucle infinie, alternate = va-retour */
+  overflow: hidden;
 }
 
-@keyframes gradientShift {
-  /* @keyframes définit les étapes de l'animation */
-  0% {
-    background: radial-gradient(ellipse at 80% 20%, var(--color-warm) 0%, transparent 50%),
-                radial-gradient(ellipse at 20% 80%, var(--color-deep) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, var(--color-cold) 0%, transparent 70%);
-    background-color: var(--color-bg);
-  }
-  50% {
-    background: radial-gradient(ellipse at 20% 30%, var(--color-warm) 0%, transparent 55%),
-                radial-gradient(ellipse at 70% 70%, var(--color-deep) 0%, transparent 45%),
-                radial-gradient(ellipse at 40% 60%, var(--color-cold) 0%, transparent 65%);
-    background-color: var(--color-bg);
-  }
-  100% {
-    background: radial-gradient(ellipse at 60% 80%, var(--color-warm) 0%, transparent 50%),
-                radial-gradient(ellipse at 30% 20%, var(--color-deep) 0%, transparent 55%),
-                radial-gradient(ellipse at 70% 40%, var(--color-cold) 0%, transparent 60%);
-    background-color: var(--color-bg);
-  }
+/* On crée 3 "orbes" de couleur qui bougent indépendamment */
+.gradient-bg::before,
+.gradient-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  /* Des cercles parfaits */
+  filter: blur(80px);
+  /* Très flou = effet dégradé doux */
+  opacity: 0.6;
+}
+
+/* Orbe chaud — rose/saumon */
+.gradient-bg::before {
+  width: 70%;
+  height: 70%;
+  background: var(--color-warm);
+  top: -10%;
+  right: -10%;
+  animation: orbMove1 14s ease-in-out infinite alternate;
+}
+
+/* Orbe froid — bleu pétrole */
+.gradient-bg::after {
+  width: 60%;
+  height: 60%;
+  background: var(--color-cold);
+  bottom: -10%;
+  left: -10%;
+  animation: orbMove2 18s ease-in-out infinite alternate;
+}
+
+/* On ajoute un 3ème orbe via un div supplémentaire */
+.gradient-orb {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background: var(--color-deep);
+  filter: blur(80px);
+  opacity: 0.5;
+  bottom: 20%;
+  right: 20%;
+  animation: orbMove3 10s ease-in-out infinite alternate;
+}
+
+/* Les 3 animations de mouvement */
+@keyframes orbMove1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-15%, 20%) scale(1.2); }
+}
+
+@keyframes orbMove2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(20%, -15%) scale(1.1); }
+}
+
+@keyframes orbMove3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-10%, 10%) scale(0.9); }
 }
 
 /* --- Overlay sombre sur le hero pour lisibilité du logo --- */
@@ -187,11 +210,14 @@ section {
 /* --- Logo --- */
 .hero-logo {
   width: clamp(200px, 50vw, 400px);
-  /* Responsive : min 200px, idéal 50% écran, max 400px */
+  /* On force le fond transparent */
+  background: transparent;
+  /* On retire tout éventuel fond noir venant du SVG */
+  mix-blend-mode: screen;
+  /* "screen" = le noir devient transparent, le blanc reste blanc */
   opacity: 0;
   transform: translateY(-20px);
   animation: fadeInDown 1.2s ease forwards;
-  /* forwards = garde l'état final de l'animation */
 }
 
 @keyframes fadeInDown {
