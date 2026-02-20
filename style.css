@@ -687,3 +687,48 @@ a:hover ~ .cursor-ring {
     font-size: 0.7rem;
   }
 }
+
+
+/* ============================================================
+   LOADER — Barre de chargement
+============================================================ */
+
+/* Overlay plein écran pendant le chargement */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  z-index: 9999;
+  /* Au dessus de tout */
+  display: flex;
+  align-items: flex-end;
+  /* La barre est en bas de l'overlay */
+  pointer-events: none;
+
+  /* État de sortie — déclenché par le JS */
+  transition: opacity 0.8s ease 0.3s;
+  /* 0.3s de délai avant de disparaître */
+}
+
+/* Quand le chargement est terminé */
+#loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* La barre de progression */
+.loader-bar {
+  height: 2px;
+  width: 0%;
+  /* Commence à 0% */
+  background: linear-gradient(
+    90deg,
+    var(--color-cold),
+    var(--color-warm),
+    var(--color-deep)
+  );
+  /* Le dégradé signature sur la barre ! */
+  transition: width 0.4s ease;
+  box-shadow: 0 0 12px var(--color-warm);
+  /* Légère lueur sous la barre */
+}
