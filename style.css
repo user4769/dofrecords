@@ -732,3 +732,19 @@ a:hover ~ .cursor-ring {
   box-shadow: 0 0 12px var(--color-warm);
   /* Légère lueur sous la barre */
 }
+
+/* ============================================================
+   PARALLAX HERO
+============================================================ */
+
+/* On prépare le hero-content pour le parallax */
+.hero-content {
+  will-change: transform;
+  /* Indique au navigateur que cet élément va bouger —
+     il l'optimise en avance (accélération GPU) */
+}
+
+/* On prépare les orbes du dégradé pour un parallax inversé */
+.gradient-bg {
+  will-change: transform;
+}
