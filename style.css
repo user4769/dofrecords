@@ -630,6 +630,12 @@ a:hover ~ .cursor-ring {
   border-color: var(--color-text-muted);
 }
 
+/* Lien actif — section en cours de lecture */
+.nav-links a.active {
+  color: var(--color-text);
+  border-bottom-color: var(--color-warm);
+}
+
 /* ---- RESPONSIVE MOBILE ---- */
 @media (max-width: 600px) {
 
