@@ -461,3 +461,81 @@ footer p {
     gap: 20px;
   }
 }
+
+
+/* ============================================================
+   CURSEUR CUSTOM
+============================================================ */
+
+/* On cache le curseur par défaut sur tout le site */
+* {
+  cursor: none;
+}
+
+/* Le point central — suit la souris instantanément */
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-text);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  /* Ne bloque pas les clics */
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease,
+              background 0.3s ease,
+              width 0.3s ease,
+              height 0.3s ease;
+}
+
+/* Le cercle — suit avec un léger retard (géré en JS) */
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(240, 238, 234, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease,
+              width 0.3s ease,
+              height 0.3s ease,
+              border-color 0.3s ease;
+}
+
+/* Effet hover sur les liens et boutons */
+a:hover ~ .cursor-dot,
+a:hover ~ .cursor-ring {
+  background: var(--color-warm);
+}
+
+/* État "hover" — le cercle s'agrandit sur les éléments cliquables */
+.cursor-dot.hovering {
+  width: 8px;
+  height: 8px;
+  background: var(--color-warm);
+}
+
+.cursor-ring.hovering {
+  width: 52px;
+  height: 52px;
+  border-color: var(--color-warm);
+}
+
+/* On cache le curseur custom sur mobile
+   (pas de souris sur tactile) */
+@media (hover: none) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+  * {
+    cursor: auto;
+  }
+}
