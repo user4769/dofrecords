@@ -258,8 +258,6 @@ const NAVBAR_THRESHOLD = 80;
 // Seuil pour le mode compact
 const NAVBAR_COMPACT   = 200;
 
-});
-
 // ============================================================
 // NAVBAR — Lien actif selon la section visible
 // Highlight le lien de la section en cours de lecture
