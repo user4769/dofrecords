@@ -311,3 +311,63 @@ const sectionObserver = new IntersectionObserver(
 
 // On observe chaque section
 sections.forEach(section => sectionObserver.observe(section));
+
+
+// ============================================================
+// PARALLAX — Effet de profondeur sur le Hero
+// ============================================================
+
+const heroContent  = document.querySelector('.hero-content');
+const gradientBg   = document.querySelector('.gradient-bg');
+const heroSection  = document.querySelector('#hero');
+
+// On écoute le scroll
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+
+  // On ne calcule le parallax que si le hero est visible
+  // Évite des calculs inutiles sur le reste de la page
+  if (scrollY > heroSection.offsetHeight) return;
+
+  // Le contenu monte moins vite que le scroll
+  // 0.4 = vitesse de parallax — entre 0 (fixe) et 1 (normal)
+  const contentOffset = scrollY * 0.4;
+  heroContent.style.transform = `translateY(${contentOffset}px)`;
+
+  // Le dégradé bouge dans le sens inverse — effet de profondeur
+  // -0.15 = très léger mouvement vers le haut
+  const bgOffset = scrollY * -0.15;
+  gradientBg.style.transform = `translateY(${bgOffset}px)`;
+
+});
+
+// ============================================================
+// PARALLAX — Effet subtil au mouvement de la souris
+// Le dégradé réagit légèrement à la position de la souris
+// ============================================================
+
+heroSection.addEventListener('mousemove', (e) => {
+
+  // On calcule la position de la souris
+  // par rapport au centre de l'écran
+  const centerX = window.innerWidth  / 2;
+  const centerY = window.innerHeight / 2;
+
+  // Distance depuis le centre (-1 à +1)
+  const deltaX = (e.clientX - centerX) / centerX;
+  const deltaY = (e.clientY - centerY) / centerY;
+
+  // Mouvement très subtil du dégradé
+  const moveX = deltaX * 15;
+  const moveY = deltaY * 15;
+
+  gradientBg.style.transition = 'transform 0.8s ease';
+  gradientBg.style.transform  = `translate(${moveX}px, ${moveY}px)`;
+
+});
+
+// Quand la souris quitte le hero, le dégradé revient en place
+heroSection.addEventListener('mouseleave', () => {
+  gradientBg.style.transition = 'transform 1.2s ease';
+  gradientBg.style.transform  = 'translate(0, 0)';
+});
