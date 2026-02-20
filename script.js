@@ -131,3 +131,69 @@ console.log('%c DOFRECORDS ',
 console.log('%c Script chargé ✓', 
   'color: #9A9590; font-size: 11px;'
 );
+
+// ============================================================
+// CURSEUR CUSTOM
+// ============================================================
+
+const cursorDot  = document.querySelector('.cursor-dot');
+const cursorRing = document.querySelector('.cursor-ring');
+
+// Position actuelle de la souris
+let mouseX = 0, mouseY = 0;
+// Position actuelle du cercle (suit avec retard)
+let ringX  = 0, ringY  = 0;
+
+// On écoute le mouvement de la souris
+window.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  // Le point suit instantanément
+  cursorDot.style.left = mouseX + 'px';
+  cursorDot.style.top  = mouseY + 'px';
+});
+
+// Le cercle suit avec un effet de "lag" fluide
+// requestAnimationFrame = s'exécute à chaque frame (60fps)
+function animateRing() {
+  // Interpolation linéaire (lerp)
+  // ringX se rapproche de mouseX de 12% à chaque frame
+  // Plus le % est bas, plus le lag est long
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top  = ringY + 'px';
+
+  requestAnimationFrame(animateRing);
+  // Boucle infinie — s'appelle elle-même à chaque frame
+}
+animateRing();
+
+// Effet hover — s'active sur tous les liens et boutons
+const hoverTargets = document.querySelectorAll(
+  'a, button, .scroll-indicator'
+);
+
+hoverTargets.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursorDot.classList.add('hovering');
+    cursorRing.classList.add('hovering');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursorDot.classList.remove('hovering');
+    cursorRing.classList.remove('hovering');
+  });
+});
+
+// On cache le curseur quand la souris quitte la fenêtre
+document.addEventListener('mouseleave', () => {
+  cursorDot.style.opacity  = '0';
+  cursorRing.style.opacity = '0';
+});
+
+document.addEventListener('mouseenter', () => {
+  cursorDot.style.opacity  = '1';
+  cursorRing.style.opacity = '1';
+});
