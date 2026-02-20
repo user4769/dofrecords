@@ -258,23 +258,6 @@ const NAVBAR_THRESHOLD = 80;
 // Seuil pour le mode compact
 const NAVBAR_COMPACT   = 200;
 
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  // window.scrollY = nombre de pixels scrollés depuis le haut
-
-  // Apparition de la navbar
-  if (scrollY > NAVBAR_THRESHOLD) {
-    navbar.classList.add('visible');
-  } else {
-    navbar.classList.remove('visible');
-  }
-
-  // Mode compact
-  if (scrollY > NAVBAR_COMPACT) {
-    navbar.classList.add('compact');
-  } else {
-    navbar.classList.remove('compact');
-  }
 });
 
 // ============================================================
@@ -321,24 +304,35 @@ const heroContent  = document.querySelector('.hero-content');
 const gradientBg   = document.querySelector('.gradient-bg');
 const heroSection  = document.querySelector('#hero');
 
-// On écoute le scroll
+// ============================================================
+// SCROLL UNIQUE — Navbar + Parallax fusionnés
+// Un seul écouteur = meilleures performances
+// ============================================================
+
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
 
-  // On ne calcule le parallax que si le hero est visible
-  // Évite des calculs inutiles sur le reste de la page
-  if (scrollY > heroSection.offsetHeight) return;
+  // --- NAVBAR ---
+  if (scrollY > NAVBAR_THRESHOLD) {
+    navbar.classList.add('visible');
+  } else {
+    navbar.classList.remove('visible');
+  }
 
-  // Le contenu monte moins vite que le scroll
-  // 0.4 = vitesse de parallax — entre 0 (fixe) et 1 (normal)
-  const contentOffset = scrollY * 0.4;
-  heroContent.style.transform = `translateY(${contentOffset}px)`;
+  if (scrollY > NAVBAR_COMPACT) {
+    navbar.classList.add('compact');
+  } else {
+    navbar.classList.remove('compact');
+  }
 
-  // Le dégradé bouge dans le sens inverse — effet de profondeur
-  // -0.15 = très léger mouvement vers le haut
-  const bgOffset = scrollY * -0.15;
-  gradientBg.style.transform = `translateY(${bgOffset}px)`;
+  // --- PARALLAX ---
+  if (scrollY <= heroSection.offsetHeight) {
+    const contentOffset = scrollY * 0.4;
+    const bgOffset      = scrollY * -0.15;
 
+    heroContent.style.transform = `translateY(${contentOffset}px)`;
+    gradientBg.style.transform  = `translateY(${bgOffset}px)`;
+  }
 });
 
 // ============================================================
