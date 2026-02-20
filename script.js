@@ -197,3 +197,69 @@ document.addEventListener('mouseenter', () => {
   cursorDot.style.opacity  = '1';
   cursorRing.style.opacity = '1';
 });
+
+
+// ============================================================
+// NAVBAR — Apparition au scroll
+// ============================================================
+
+const navbar = document.querySelector('#navbar');
+
+// Seuil en pixels à partir duquel la navbar apparaît
+const NAVBAR_THRESHOLD = 80;
+// Seuil pour le mode compact
+const NAVBAR_COMPACT   = 200;
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  // window.scrollY = nombre de pixels scrollés depuis le haut
+
+  // Apparition de la navbar
+  if (scrollY > NAVBAR_THRESHOLD) {
+    navbar.classList.add('visible');
+  } else {
+    navbar.classList.remove('visible');
+  }
+
+  // Mode compact
+  if (scrollY > NAVBAR_COMPACT) {
+    navbar.classList.add('compact');
+  } else {
+    navbar.classList.remove('compact');
+  }
+});
+
+// ============================================================
+// NAVBAR — Lien actif selon la section visible
+// Highlight le lien de la section en cours de lecture
+// ============================================================
+
+const sections  = document.querySelectorAll('section');
+const navLinks  = document.querySelectorAll('.nav-links a');
+
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+
+        // On retire la classe active de tous les liens
+        navLinks.forEach(link => link.classList.remove('active'));
+
+        // On trouve le lien qui correspond à la section visible
+        const activeLink = document.querySelector(
+          `.nav-links a[href="#${entry.target.id}"]`
+        );
+
+        // On lui ajoute la classe active
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  },
+  {
+    threshold: 0.4
+    // La section doit être visible à 40% pour être "active"
+  }
+);
+
+// On observe chaque section
+sections.forEach(section => sectionObserver.observe(section));
