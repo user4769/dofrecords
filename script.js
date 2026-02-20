@@ -3,6 +3,54 @@
 // Ce fichier gère toutes les animations et interactions
 // ============================================================
 
+// ============================================================
+// LOADER — Barre de chargement
+// À mettre EN PREMIER dans le script
+// ============================================================
+
+const loader    = document.querySelector('#loader');
+const loaderBar = document.querySelector('.loader-bar');
+
+// Étapes de progression simulées
+// [ délai en ms, largeur en % ]
+const steps = [
+  [100,  25],
+  [400,  50],
+  [700,  75],
+  [900,  90],
+  [1100, 100],
+];
+
+// On joue chaque étape avec son délai
+steps.forEach(([delay, width]) => {
+  setTimeout(() => {
+    loaderBar.style.width = width + '%';
+  }, delay);
+});
+
+// Quand la page est complètement chargée
+window.addEventListener('load', () => {
+
+  // On force la barre à 100% si ce n'est pas déjà fait
+  loaderBar.style.width = '100%';
+
+  // Petit délai pour que le 100% soit visible
+  setTimeout(() => {
+    loader.classList.add('hidden');
+
+    // On retire le loader du DOM après la transition
+    // pour qu'il ne bloque plus rien
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 1100);
+    // 1100ms = durée de la transition opacity (0.8s) + délai (0.3s)
+
+  }, 300);
+});
+
+// ============================================================
+// ... reste du script inchangé en dessous ...
+// ============================================================
 
 // ============================================================
 // 1. INTERSECTION OBSERVER
